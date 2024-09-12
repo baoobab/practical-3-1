@@ -12,18 +12,20 @@ private:
     void flushMemory();
     void quickSortHelper(unsigned low, unsigned high);
     void quickSortReverseHelper(unsigned low, unsigned high);
+    void copyArray();
+    bool checkIndex(unsigned int index);
 public:
     TArray();
     ~TArray();
     void appendElement(number el);
     void print();
-
-    void fillArray(unsigned int amount);
+    void resizeArray(unsigned newSize);
     number mediumValue();
     number standardDeviation();
     void sort();
     void reverseSort();
     void replaceElement(unsigned int index, number value);
+    void removeElementByIndex(unsigned int index);
 };
 
 #endif // ARRAY_H

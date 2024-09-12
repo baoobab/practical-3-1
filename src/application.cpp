@@ -20,6 +20,7 @@ int TApplication::exec() {
 
         switch (ch) {
             case 7: {
+                // baoobab: из методички - <до ввода в программе должен быть задан массив по умолчанию> это как?
                 number bebra;
                 cin >> bebra;
 
@@ -63,6 +64,17 @@ int TApplication::exec() {
                 break;
             }
             case 3: {
+                unsigned newSize; // TODO: мб заменить на int, т.к. отриц. значения дают огромные числа вместо ошибки
+
+                cout << "Enter a new array dimension: ";
+                cin >> newSize;
+
+                if (!cin.good()) {
+                    cout << "\nYou entered an incorrect value\n";
+                    continue;
+                }
+                bebraArr.resizeArray(newSize);
+                bebraArr.print();
                 break;
             }
             case 2: {
@@ -75,6 +87,7 @@ int TApplication::exec() {
                     cout << "\nYou entered an incorrect value\n";
                     continue;
                 }
+
                 cout << "\n" << "value: ";
                 cin >> value;
                 if (!cin.good()) {
@@ -108,7 +121,7 @@ int TApplication::menu() {
     cout << "Operations:" << "\n";
     cout << "7 - define array" << "\n";
     cout << "6 - SO" << "\n";
-    cout << "5 - SK(V)O" << "\n";
+    cout << "5 - SKO" << "\n";
     cout << "4 - sort array" << "\n";
     cout << "3 - change size of array" << "\n";
     cout << "2 - change element of array" << "\n";

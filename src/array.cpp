@@ -15,6 +15,10 @@ TArray::~TArray() {
     this->flushMemory();
 }
 
+bool TArray::checkIndex(unsigned int index) {
+    return index < this->size;
+}
+
 void TArray::flushMemory() {
     cout << "Ya crestyanin\n";
     delete[] this->arr; // TODO: podumat"
@@ -29,11 +33,28 @@ void TArray::appendElement(number el) {
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         *(newArr + cnt++) = *curr;
     }
-//    cout << "\ncount: " << cnt << "\n";
     *(newArr + cnt) = el;
+
+    delete[] this->arr;
 
     this->arr = newArr;
     this->size++;
+}
+
+void TArray::removeElementByIndex(unsigned index) {
+    if (!checkIndex(index) || !this->size) return; // Если такого индекса нет, или массив пустой - выходим
+
+    number* newArr = new number[this->size - 1];
+    number cnt = 0;
+    for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
+        if (index-- == 0) continue; // скипаем удаляемый элемент
+        *(newArr + cnt++) = *curr;
+    }
+
+    delete[] this->arr;
+
+    this->arr = newArr;
+    this->size--;
 }
 
 void TArray::print() {
@@ -93,12 +114,10 @@ void TArray::quickSortHelper(unsigned int low, unsigned int high) {
             j--;
         }
     }
-    cout << "\nrekur";
     if (j > low)
         this->quickSortHelper(low, j);
     if (i < high)
         this->quickSortHelper(i, high);
-    cout << "\nkenec";
 }
 
 void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
@@ -139,6 +158,30 @@ void TArray::reverseSort() {
 }
 
 void TArray::replaceElement(unsigned int index, number value) {
+    if (!checkIndex(index)) {
+        cout << "\nThere is no element with this index\n";
+        return;
+    }
+
     *(this->arr + index) = value;
 }
 
+void TArray::resizeArray(unsigned int newSize) {
+    int elementsToAppend = newSize - this->size; // TODO: функция может возвращать кол-во созданных элементов
+    cout << "eta " << elementsToAppend << "\n";
+    /*if (elementsToAppend == 0) {
+        cout << "Dimension is already like that" << "\n";
+    } else if*/
+    if (elementsToAppend < 0) {
+        while (elementsToAppend++) {
+            this->removeElementByIndex(this->size - 1);
+        }
+    } else if (elementsToAppend > 0) {
+        while (elementsToAppend--) {
+            this->appendElement(0); // baoobab: мб создать ДефолтЗначение для number как константу и импротировать её
+        }
+    }
+
+    cout << "Current dimension is: " << newSize << "\n";
+    return;
+}
