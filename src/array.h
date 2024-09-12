@@ -15,6 +15,12 @@ public:
     ~TArray();
     void appendElement(number el);
     void print();
+
+    void fillArray(unsigned int amount);
+    float mediumValue();
+    void sort();
+    void reverseSort();
+    void replaceElement(unsigned int index, number value);
 };
 
 #endif // ARRAY_H

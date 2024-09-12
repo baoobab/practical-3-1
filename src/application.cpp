@@ -24,21 +24,45 @@ int TApplication::exec() {
                 break;
             }
             case 6: {
+                float so = bebraArr.mediumValue();
+                cout <<"Medium value: " << so << '\n';
                 break;
             }
             case 5: {
                 break;
             }
             case 4: {
+                int sCh = 0;
+                cout << "0. ascending order" << '\n';
+                cout << "1. descending order" << '\n';
+                cin >> sCh;
+                if (!sCh)
+                {
+                    bebraArr.sort();
+                }
+                else
+                {
+//                    bebraArr.reverseSort();
+                }
+
+                bebraArr.print();
                 break;
             }
             case 3: {
                 break;
             }
             case 2: {
+                int index, value;
+                cout << "index: ";
+                cin >> index;
+                cout << '\n' << "value: ";
+                cin >> value;
+                cout << '\n';
+                bebraArr.replaceElement(index, value);
                 break;
             }
             case 1: {
+                bebraArr.print();
                 break;
             }
             case 0: {

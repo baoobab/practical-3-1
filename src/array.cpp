@@ -16,18 +16,6 @@ TArray::~TArray() {
 
 void TArray::flushMemory() {
     cout << "Ya crestyanin\n";
-
-
-    // int test = 0;
-    // for (int testCnt = 0; testCnt < this->size; testCnt++) {
-    //     number* curr = (this->arr+testCnt);
-    //     number* prevCurr = (curr - 1);
-    //     if (test++ > 0) {
-    //         cout << "flushed: " << *prevCurr << " " << *curr << "\n";
-    //         delete prevCurr;
-    //     }
-    //     cout << "after: " << *curr << " " << curr << "\n";
-    // }
     delete[] this->arr; // TODO: podumat'
     this->size = 0;
     this->arr = 0;
@@ -40,7 +28,7 @@ void TArray::appendElement(number el) {
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         *(newArr + cnt++) = *curr;
     }
-    cout << "\ncount: " << cnt << "\n";
+//    cout << "\ncount: " << cnt << "\n";
     *(newArr + cnt) = el;
 
     this->arr = newArr;
@@ -48,8 +36,83 @@ void TArray::appendElement(number el) {
 }
 
 void TArray::print() {
-    cout << "Size: " << this->size << "\n";
+//    cout << "Size: " << this->size << "\n";
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
-        cout << "Elem: " << *curr << "\n";
+        cout << *curr << " ";
     }
+    cout << '\n';
 }
+
+float TArray::mediumValue() {
+    float summ = 0;
+    for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
+        summ += *curr;
+    }
+    return summ/this->size;
+
+}
+
+// TODO: mozhno li tak v oop hzhz
+void quickSort(number *array, unsigned int low, unsigned int high) {
+    unsigned int i = low;
+    unsigned int j = high;
+    number pivot = *(array+((i + j) / 2));
+    number temp;
+
+    while (i <= j) {
+        while (*(array+i) < pivot)
+            i++;
+        while (*(array+j) > pivot)
+            j--;
+        if (i <= j) {
+            temp = *(array+i);
+            *(array+i) = *(array+j);
+            *(array+j) = temp;
+            i++;
+            j--;
+        }
+    }
+    if (j > low)
+        quickSort(array, low, j);
+    if (i < high)
+        quickSort(array, i, high);
+}
+
+void quickSortReverse(number *array, unsigned int low, unsigned int high) {
+    unsigned int i = low;
+    unsigned int j = high;
+    number pivot = *(array + ((i + j) / 2));
+    number temp;
+
+    while (i <= j) {
+        while (*(array + i) > pivot)
+            i++;
+        while (*(array + j) < pivot)
+            j--;
+        if (i <= j) {
+            temp = *(array + i);
+            *(array + i) = *(array + j);
+            *(array + j) = temp;
+            i++;
+            j--;
+        }
+    }
+
+    if (j > low)
+        quickSortReverse(array, low, j);
+    if (i < high)
+        quickSortReverse(array, i, high);
+}
+
+void TArray::sort() {
+    quickSort(this->arr, 0, this->size);
+}
+
+void TArray::reverseSort() {
+    quickSortReverse(this->arr, 0, this->size);
+}
+
+void TArray::replaceElement(unsigned int index, number value) {
+    *(this->arr + index) = value;
+}
+
