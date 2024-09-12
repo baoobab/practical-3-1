@@ -14,35 +14,49 @@ int TApplication::exec() {
     int ch;
     TArray bebraArr; // TODO: zamena na adekvatniy name
     while (true) {
+        cin.clear(); // Clearing the input stream from possible errors
+        cin.sync();
         ch = menu();
+
         switch (ch) {
             case 7: {
                 number bebra;
                 cin >> bebra;
-                bebraArr.appendElement(bebra);
+
+                if (!cin.good()) {
+                    cout << "\nYou entered an incorrect value\n";
+                    continue;
+                }
+
+                bebraArr.appendElement(bebra); // TODO: сделать норм инициализацию
                 bebraArr.print();
                 break;
             }
             case 6: {
-                float so = bebraArr.mediumValue();
-                cout <<"Medium value: " << so << '\n';
+                cout <<"Medium value: " << bebraArr.mediumValue() << "\n";
                 break;
             }
             case 5: {
+                cout << "SKO (standard deviation): " << bebraArr.standardDeviation() << "\n";
                 break;
             }
             case 4: {
-                int sCh = 0;
-                cout << "0. ascending order" << '\n';
-                cout << "1. descending order" << '\n';
+                short int sCh = 0;
+
+                cout << "0. ascending order" << "\n";
+                cout << "1. descending order" << "\n";
                 cin >> sCh;
-                if (!sCh)
-                {
+
+                if (!cin.good()) {
+                    cout << "\nYou entered an incorrect value\n";
+                    continue;
+                }
+
+                if (!sCh) {
                     bebraArr.sort();
                 }
-                else
-                {
-//                    bebraArr.reverseSort();
+                else {
+//                    bebraArr.reverseSort(); // TODO: починить
                 }
 
                 bebraArr.print();
@@ -52,12 +66,22 @@ int TApplication::exec() {
                 break;
             }
             case 2: {
-                int index, value;
+                unsigned index;
+                number value;
+
                 cout << "index: ";
                 cin >> index;
-                cout << '\n' << "value: ";
+                if (!cin.good()) {
+                    cout << "\nYou entered an incorrect value\n";
+                    continue;
+                }
+                cout << "\n" << "value: ";
                 cin >> value;
-                cout << '\n';
+                if (!cin.good()) {
+                    cout << "\nYou entered an incorrect value\n";
+                    continue;
+                }
+                cout << "\n";
                 bebraArr.replaceElement(index, value);
                 break;
             }
@@ -69,6 +93,7 @@ int TApplication::exec() {
                 return 0;
             }
             default: {
+                cout << "\n" << "There is no case with this number" << "\n";
                 break;
             }
         }
@@ -80,7 +105,7 @@ int TApplication::exec() {
 int TApplication::menu() {
     int ch;
 
-    cout << "Salam" << "\n";
+    cout << "Operations:" << "\n";
     cout << "7 - define array" << "\n";
     cout << "6 - SO" << "\n";
     cout << "5 - SK(V)O" << "\n";
@@ -91,5 +116,7 @@ int TApplication::menu() {
     cout << "0 - exit" << "\n" << "> ";
 
     cin >> ch;
+    if (!cin.good()) return -1;
+
     return ch;
 }

@@ -1,5 +1,6 @@
 #include "array.h"
 #include "number.h"
+#include <cmath>
 #include <iostream>
 
 using namespace std;
@@ -11,12 +12,12 @@ TArray::TArray() {
 }
 
 TArray::~TArray() {
-    flushMemory();
+    this->flushMemory();
 }
 
 void TArray::flushMemory() {
     cout << "Ya crestyanin\n";
-    delete[] this->arr; // TODO: podumat'
+    delete[] this->arr; // TODO: podumat"
     this->size = 0;
     this->arr = 0;
 }
@@ -36,20 +37,39 @@ void TArray::appendElement(number el) {
 }
 
 void TArray::print() {
-//    cout << "Size: " << this->size << "\n";
+    if (!this->size) {
+        cout << "Array is empty" << "\n";
+        return;
+    }
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         cout << *curr << " ";
     }
-    cout << '\n';
+    cout << "\n";
 }
 
 number TArray::mediumValue() {
+    if (!this->size) return 0; // baoobab: Или ошибку выкидывать - хз,
+    // просто если будут отриц. числа то ретёрнить ноль такое
+
     number summ = 0;
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         summ += *curr;
     }
     return summ/this->size;
 
+}
+
+number TArray::standardDeviation() {
+    if (!this->size) return 0; // baoobab: Или ошибку выкидывать - хз
+
+    number mediumValue = this->mediumValue();
+    number standardSumm = 0;
+
+    for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
+        standardSumm += pow(*curr - mediumValue, 2);
+    }
+
+    return sqrt(standardSumm / (this->size - 1));
 }
 
 void TArray::quickSortHelper(unsigned int low, unsigned int high) {
@@ -82,6 +102,8 @@ void TArray::quickSortHelper(unsigned int low, unsigned int high) {
 }
 
 void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
+    if (this->size <= 1) return;
+
     unsigned int i = low;
     unsigned int j = high;
     number pivot = *(this->arr + ((i + j) / 2));
@@ -108,6 +130,7 @@ void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
 }
 
 void TArray::sort() {
+    cout << "alo\n";
     this->quickSortHelper(0, this->size - 1);
 }
 
