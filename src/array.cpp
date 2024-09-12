@@ -43,8 +43,8 @@ void TArray::print() {
     cout << '\n';
 }
 
-float TArray::mediumValue() {
-    float summ = 0;
+number TArray::mediumValue() {
+    number summ = 0;
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         summ += *curr;
     }
@@ -52,64 +52,67 @@ float TArray::mediumValue() {
 
 }
 
-// TODO: mozhno li tak v oop hzhz
-void quickSort(number *array, unsigned int low, unsigned int high) {
+void TArray::quickSortHelper(unsigned int low, unsigned int high) {
+    if (this->size <= 1) return;
+
     unsigned int i = low;
     unsigned int j = high;
-    number pivot = *(array+((i + j) / 2));
+    number pivot = *(this->arr+((i + j) / 2));
     number temp;
 
     while (i <= j) {
-        while (*(array+i) < pivot)
+        while (*(this->arr+i) < pivot)
             i++;
-        while (*(array+j) > pivot)
+        while (*(this->arr+j) > pivot)
             j--;
         if (i <= j) {
-            temp = *(array+i);
-            *(array+i) = *(array+j);
-            *(array+j) = temp;
+            temp = *(this->arr+i);
+            *(this->arr+i) = *(this->arr+j);
+            *(this->arr+j) = temp;
             i++;
             j--;
         }
     }
+    cout << "\nrekur";
     if (j > low)
-        quickSort(array, low, j);
+        this->quickSortHelper(low, j);
     if (i < high)
-        quickSort(array, i, high);
+        this->quickSortHelper(i, high);
+    cout << "\nkenec";
 }
 
-void quickSortReverse(number *array, unsigned int low, unsigned int high) {
+void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
     unsigned int i = low;
     unsigned int j = high;
-    number pivot = *(array + ((i + j) / 2));
+    number pivot = *(this->arr + ((i + j) / 2));
     number temp;
 
     while (i <= j) {
-        while (*(array + i) > pivot)
+        while (*(this->arr + i) > pivot)
             i++;
-        while (*(array + j) < pivot)
+        while (*(this->arr + j) < pivot)
             j--;
         if (i <= j) {
-            temp = *(array + i);
-            *(array + i) = *(array + j);
-            *(array + j) = temp;
+            temp = *(this->arr + i);
+            *(this->arr + i) = *(this->arr + j);
+            *(this->arr + j) = temp;
             i++;
             j--;
         }
     }
 
     if (j > low)
-        quickSortReverse(array, low, j);
+        this->quickSortReverseHelper(low, j);
     if (i < high)
-        quickSortReverse(array, i, high);
+        this->quickSortReverseHelper(i, high);
 }
 
 void TArray::sort() {
-    quickSort(this->arr, 0, this->size);
+    this->quickSortHelper(0, this->size - 1);
 }
 
 void TArray::reverseSort() {
-    quickSortReverse(this->arr, 0, this->size);
+    this->quickSortReverseHelper(0, this->size - 1);
 }
 
 void TArray::replaceElement(unsigned int index, number value) {

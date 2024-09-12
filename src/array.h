@@ -10,6 +10,8 @@ private:
     number* arr =  0;
 
     void flushMemory(); // TODO: mb huynya
+    void quickSortHelper(unsigned low, unsigned high);
+    void quickSortReverseHelper(unsigned low, unsigned high);
 public:
     TArray();
     ~TArray();
@@ -17,7 +19,7 @@ public:
     void print();
 
     void fillArray(unsigned int amount);
-    float mediumValue();
+    number mediumValue();
     void sort();
     void reverseSort();
     void replaceElement(unsigned int index, number value);
