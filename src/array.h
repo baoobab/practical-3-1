@@ -10,14 +10,13 @@ private:
     number* arr =  0;
 
     void flushMemory();
-    void quickSortHelper(unsigned low, unsigned high);
-    void quickSortReverseHelper(unsigned low, unsigned high);
+    void quickSortHelper(int low, int high);
+    void quickSortReverseHelper(int low, int high);
     void copyArray();
     bool checkIndex(unsigned int index);
 public:
     TArray();
     ~TArray();
-    // number& operator[](unsigned index); // неверные индексы ломают прилу
     unsigned getSize();
     void appendElement(number el);
     void print();

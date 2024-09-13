@@ -75,7 +75,7 @@ int TApplication::exec() {
                 if (!sCh) {
                     bebraArr.sort();
                 } else {
-//                    bebraArr.reverseSort(); // TODO: починить
+                   bebraArr.reverseSort(); // TODO: починить
                 }
 
                 bebraArr.print();
