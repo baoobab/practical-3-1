@@ -43,7 +43,7 @@ void TArray::fillArray(unsigned newSize, number el) {
 
 void TArray::appendElement(number el) {
     number* newArr = new number[this->size + 1];
-    number cnt = 0;
+    unsigned cnt = 0;
 
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         *(newArr + cnt++) = *curr;
@@ -60,7 +60,7 @@ void TArray::removeElementByIndex(unsigned index) {
     if (!checkIndex(index) || !this->size) return; // Если такого индекса нет, или массив пустой - выходим
 
     number* newArr = new number[this->size - 1];
-    number cnt = 0;
+    unsigned cnt = 0;
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         if (index-- == 0) continue; // скипаем удаляемый элемент
         *(newArr + cnt++) = *curr;
