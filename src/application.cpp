@@ -21,15 +21,34 @@ int TApplication::exec() {
         switch (ch) {
             case 7: {
                 // baoobab: из методички - <до ввода в программе должен быть задан массив по умолчанию> это как?
-                number bebra;
-                cin >> bebra;
+
+                short int sCh = 0;
+
+                cout << "0. enter elements manually" << "\n";
+                cout << "1. enter dimension (filled with zeros)" << "\n";
+                cin >> sCh;
 
                 if (!cin.good()) {
                     cout << "\nYou entered an incorrect value\n";
                     continue;
                 }
 
-                bebraArr.appendElement(bebra); // TODO: сделать норм инициализацию
+                if (!sCh) {
+                    number item;
+                    cout << "Elements (to stop it - enter any char): ";
+                    while (cin >> item) bebraArr.appendElement(item);
+                } else {
+                    unsigned dimension;
+                    cout << "Dimension (warn - this operation will delete the old array if it exists): ";
+                    cin >> dimension;
+
+                    if (!cin.good()) {
+                        cout << "\nYou entered an incorrect value\n";
+                        continue;
+                    }
+                    bebraArr.defineArray(dimension);
+                }
+
                 bebraArr.print();
                 break;
             }
@@ -55,8 +74,7 @@ int TApplication::exec() {
 
                 if (!sCh) {
                     bebraArr.sort();
-                }
-                else {
+                } else {
 //                    bebraArr.reverseSort(); // TODO: починить
                 }
 
