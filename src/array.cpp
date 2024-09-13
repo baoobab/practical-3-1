@@ -29,6 +29,18 @@ void TArray::flushMemory() {
     this->arr = 0;
 }
 
+void TArray::fillArray(unsigned newSize, number el) {
+    number* newArr = new number[newSize];
+
+    for (number* curr = newArr; curr != (newArr + newSize); curr++) {
+        *curr = el;
+    }
+    delete[] this->arr;
+
+    this->arr = newArr;
+    this->size = newSize;
+}
+
 void TArray::appendElement(number el) {
     number* newArr = new number[this->size + 1];
     number cnt = 0;
@@ -65,6 +77,7 @@ void TArray::print() {
         cout << "Array is empty" << "\n";
         return;
     }
+    cout << "Array: ";
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         cout << *curr << " ";
     }
@@ -72,8 +85,7 @@ void TArray::print() {
 }
 
 number TArray::mediumValue() {
-    if (!this->size) return 0; // baoobab: Или ошибку выкидывать - хз,
-    // просто если будут отриц. числа то ретёрнить ноль такое
+    if (!this->size) return 0;
 
     number summ = 0;
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
@@ -84,7 +96,7 @@ number TArray::mediumValue() {
 }
 
 number TArray::standardDeviation() {
-    if (!this->size) return 0; // baoobab: Или ошибку выкидывать - хз
+    if (!this->size || this->size == 1) return 0;
 
     number mediumValue = this->mediumValue();
     number standardSumm = 0;
@@ -169,27 +181,18 @@ void TArray::replaceElement(unsigned int index, number value) {
 }
 
 void TArray::resizeArray(unsigned int newSize) {
-    int elementsToAppend = newSize - this->size; // TODO: функция может возвращать кол-во созданных элементов
+    int elementsToAppend = newSize - this->size;
 
-    /*if (elementsToAppend == 0) {
-        cout << "Dimension is already like that" << "\n";
-    } else if*/
     if (elementsToAppend < 0) {
         while (elementsToAppend++) {
             this->removeElementByIndex(this->size - 1);
         }
     } else if (elementsToAppend > 0) {
         while (elementsToAppend--) {
-            this->appendElement(0); // baoobab: мб создать ДефолтЗначение для number как константу и импротировать её
+            this->appendElement(0);
         }
     }
 
     cout << "Current dimension is: " << newSize << "\n";
     return;
-}
-
-
-void TArray::defineArray(unsigned int size) {
-    this->flushMemory();
-    this->resizeArray(size);
 }

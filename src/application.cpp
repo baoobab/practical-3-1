@@ -12,7 +12,7 @@ TApplication::TApplication() {
 
 int TApplication::exec() {
     int ch;
-    TArray bebraArr; // TODO: zamena na adekvatniy name
+    TArray arr;
     while (true) {
         cin.clear(); // Clearing the input stream from possible errors
         cin.sync();
@@ -20,44 +20,47 @@ int TApplication::exec() {
 
         switch (ch) {
             case 7: {
-                // baoobab: из методички - <до ввода в программе должен быть задан массив по умолчанию> это как?
-
                 short int sCh = 0;
-
+                number item;
                 cout << "0. enter elements manually" << "\n";
-                cout << "1. enter dimension (filled with zeros)" << "\n";
+                cout << "1. enter dimension" << "\n";
                 cin >> sCh;
 
                 if (!cin.good()) {
                     cout << "\nYou entered an incorrect value\n";
                     continue;
                 }
+                arr.flushMemory();
 
                 if (!sCh) {
-                    number item;
                     cout << "Elements (to stop it - enter any char): ";
-                    while (cin >> item) bebraArr.appendElement(item);
+                    while (cin >> item) arr.appendElement(item);
                 } else {
                     unsigned dimension;
                     cout << "Dimension (warn - this operation will delete the old array if it exists): ";
                     cin >> dimension;
-
+                    getchar();
+                    cout << " ";
                     if (!cin.good()) {
                         cout << "\nYou entered an incorrect value\n";
                         continue;
                     }
-                    bebraArr.defineArray(dimension);
+
+                    cout << "\nEnter filling value (default 0): ";
+                    cin >> item;
+
+                    arr.fillArray(dimension, item);
                 }
 
-                bebraArr.print();
+                arr.print();
                 break;
             }
             case 6: {
-                cout <<"Medium value: " << bebraArr.mediumValue() << "\n";
+                cout <<"Medium value: " << arr.mediumValue() << "\n";
                 break;
             }
             case 5: {
-                cout << "SKO (standard deviation): " << bebraArr.standardDeviation() << "\n";
+                cout << "SKO (standard deviation): " << arr.standardDeviation() << "\n";
                 break;
             }
             case 4: {
@@ -73,16 +76,16 @@ int TApplication::exec() {
                 }
 
                 if (!sCh) {
-                    bebraArr.sort();
+                    arr.sort();
                 } else {
-                   bebraArr.reverseSort(); // TODO: починить
+                   arr.reverseSort();
                 }
 
-                bebraArr.print();
+                arr.print();
                 break;
             }
             case 3: {
-                unsigned newSize; // TODO: мб заменить на int, т.к. отриц. значения дают огромные числа вместо ошибки
+                unsigned newSize;
 
                 cout << "Enter a new array dimension: ";
                 cin >> newSize;
@@ -91,8 +94,8 @@ int TApplication::exec() {
                     cout << "\nYou entered an incorrect value\n";
                     continue;
                 }
-                bebraArr.resizeArray(newSize);
-                bebraArr.print();
+                arr.resizeArray(newSize);
+                arr.print();
                 break;
             }
             case 2: {
@@ -113,11 +116,11 @@ int TApplication::exec() {
                     continue;
                 }
                 cout << "\n";
-                bebraArr.replaceElement(index, value);
+                arr.replaceElement(index, value);
                 break;
             }
             case 1: {
-                bebraArr.print();
+                arr.print();
                 break;
             }
             case 0: {

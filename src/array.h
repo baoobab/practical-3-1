@@ -9,7 +9,6 @@ private:
     unsigned size = 0;
     number* arr =  0;
 
-    void flushMemory();
     void quickSortHelper(int low, int high);
     void quickSortReverseHelper(int low, int high);
     void copyArray();
@@ -26,8 +25,10 @@ public:
     number standardDeviation();
     void sort();
     void reverseSort();
+    void flushMemory();
     void replaceElement(unsigned int index, number value);
-    void removeElementByIndex(unsigned int index);  
+    void removeElementByIndex(unsigned int index);
+    void fillArray(unsigned newSize, number el = 0);
 };
 
 #endif // ARRAY_H
