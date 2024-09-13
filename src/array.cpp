@@ -15,8 +15,18 @@ TArray::~TArray() {
     this->flushMemory();
 }
 
+unsigned TArray::getSize() {
+    return this->size;
+}
+// number& TArray::operator[](unsigned index) {
+//     if (!checkIndex(index)) {
+//         throw out_of_range("Index out of range"); // TODO: починить
+//     }
+//     return *(this->arr + index);
+// }
+
 bool TArray::checkIndex(unsigned int index) {
-    return index < this->size;
+    return (index < this->size);
 }
 
 void TArray::flushMemory() {
@@ -149,7 +159,6 @@ void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
 }
 
 void TArray::sort() {
-    cout << "alo\n";
     this->quickSortHelper(0, this->size - 1);
 }
 
@@ -159,7 +168,7 @@ void TArray::reverseSort() {
 
 void TArray::replaceElement(unsigned int index, number value) {
     if (!checkIndex(index)) {
-        cout << "\nThere is no element with this index\n";
+        cout << "\nIndex out of range\n";
         return;
     }
 
@@ -168,7 +177,7 @@ void TArray::replaceElement(unsigned int index, number value) {
 
 void TArray::resizeArray(unsigned int newSize) {
     int elementsToAppend = newSize - this->size; // TODO: функция может возвращать кол-во созданных элементов
-    cout << "eta " << elementsToAppend << "\n";
+
     /*if (elementsToAppend == 0) {
         cout << "Dimension is already like that" << "\n";
     } else if*/
@@ -184,4 +193,10 @@ void TArray::resizeArray(unsigned int newSize) {
 
     cout << "Current dimension is: " << newSize << "\n";
     return;
+}
+
+
+void TArray::defineArray(unsigned int size) {
+    this->flushMemory();
+    this->resizeArray(size);
 }
