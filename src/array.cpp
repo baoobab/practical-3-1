@@ -18,28 +18,21 @@ TArray::~TArray() {
 unsigned TArray::getSize() {
     return this->size;
 }
-// number& TArray::operator[](unsigned index) {
-//     if (!checkIndex(index)) {
-//         throw out_of_range("Index out of range"); // TODO: починить
-//     }
-//     return *(this->arr + index);
-// }
 
 bool TArray::checkIndex(unsigned int index) {
     return (index < this->size);
 }
 
 void TArray::flushMemory() {
-    cout << "Ya crestyanin\n";
-    delete[] this->arr; // TODO: podumat"
+    delete[] this->arr;
     this->size = 0;
     this->arr = 0;
 }
 
 void TArray::appendElement(number el) {
     number* newArr = new number[this->size + 1];
-    // number* newArr = (number*) malloc(sizeof(number) * (this->size + 1));
-    number cnt = 0; // TODO: mb number zalupa nuzen unsigned hzhzhzh
+    number cnt = 0;
+
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         *(newArr + cnt++) = *curr;
     }
@@ -103,11 +96,11 @@ number TArray::standardDeviation() {
     return sqrt(standardSumm / (this->size - 1));
 }
 
-void TArray::quickSortHelper(unsigned int low, unsigned int high) {
+void TArray::quickSortHelper(int low, int high) {
     if (this->size <= 1) return;
 
-    unsigned int i = low;
-    unsigned int j = high;
+    int i = low;
+    int j = high;
     number pivot = *(this->arr+((i + j) / 2));
     number temp;
 
@@ -130,11 +123,11 @@ void TArray::quickSortHelper(unsigned int low, unsigned int high) {
         this->quickSortHelper(i, high);
 }
 
-void TArray::quickSortReverseHelper(unsigned int low, unsigned int high) {
+void TArray::quickSortReverseHelper(int low, int high) {
     if (this->size <= 1) return;
 
-    unsigned int i = low;
-    unsigned int j = high;
+    int i = low;
+    int j = high;
     number pivot = *(this->arr + ((i + j) / 2));
     number temp;
 
