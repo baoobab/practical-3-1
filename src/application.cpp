@@ -19,117 +19,118 @@ int TApplication::exec() {
         ch = menu();
 
         switch (ch) {
-            case 7: {
-                short int sCh = 0;
-                number item;
-                cout << "0. enter elements manually" << "\n";
-                cout << "1. enter dimension" << "\n";
-                cin >> sCh;
+        case 7: {
+            short int sCh = 0;
+            number item;
+            cout << "0. enter elements manually" << "\n";
+            cout << "1. enter dimension" << "\n";
+            cin >> sCh;
 
-                if (!cin.good()) {
-                    cout << "\nYou entered an incorrect value\n";
-                    continue;
-                }
-                arr.flushMemory();
-
-                if (!sCh) {
-                    cout << "Elements (to stop it - enter any char): ";
-                    while (cin >> item) arr.appendElement(item);
-                } else {
-                    unsigned dimension;
-                    cout << "Dimension (warn - this operation will delete the old array if it exists): ";
-                    cin >> dimension;
-                    getchar();
-                    cout << " ";
-                    if (!cin.good()) {
-                        cout << "\nYou entered an incorrect value\n";
-                        continue;
-                    }
-
-                    cout << "\nEnter filling value (default 0): ";
-                    cin >> item;
-
-                    arr.fillArray(dimension, item);
-                }
-
-                arr.print();
-                break;
+            if (!cin.good()) {
+                cout << "\nYou entered an incorrect value\n";
+                continue;
             }
-            case 6: {
-                cout <<"Medium value: " << arr.mediumValue() << "\n";
-                break;
-            }
-            case 5: {
-                cout << "SKO (standard deviation): " << arr.standardDeviation() << "\n";
-                break;
-            }
-            case 4: {
-                short int sCh = 0;
+            arr.flushMemory();
 
-                cout << "0. ascending order" << "\n";
-                cout << "1. descending order" << "\n";
-                cin >> sCh;
-
+            if (!sCh) {
+                cout << "Elements (to stop it - enter any char): ";
+                while (cin >> item) arr.appendElement(item);
+            } else {
+                unsigned dimension;
+                cout << "Dimension (warn - this operation will delete the old array if it exists): ";
+                cin >> dimension;
+                getchar();
+                cout << " ";
                 if (!cin.good()) {
                     cout << "\nYou entered an incorrect value\n";
                     continue;
                 }
 
-                if (!sCh) {
-                    arr.sort();
-                } else {
-                   arr.reverseSort();
-                }
+                cout << "\nEnter filling value (default 0): ";
+                cin >> item;
 
-                arr.print();
-                break;
+                arr.fillArray(dimension, item);
             }
-            case 3: {
-                unsigned newSize;
 
-                cout << "Enter a new array dimension: ";
-                cin >> newSize;
+            arr.print();
+            break;
+        }
+        case 6: {
+            cout <<"Medium value: " << arr.mediumValue() << "\n";
+            break;
+        }
+        case 5: {
+            cout << "SKO (standard deviation): " << arr.standardDeviation() << "\n";
+            break;
+        }
+        case 4: {
+            short int sCh = 0;
 
-                if (!cin.good()) {
-                    cout << "\nYou entered an incorrect value\n";
-                    continue;
-                }
-                arr.resizeArray(newSize);
-                arr.print();
-                break;
-            }
-            case 2: {
-                unsigned index;
-                number value;
+            cout << "0. ascending order" << "\n";
+            cout << "1. descending order" << "\n";
+            cin >> sCh;
 
-                cout << "index: ";
-                cin >> index;
-                if (!cin.good()) {
-                    cout << "\nYou entered an incorrect value\n";
-                    continue;
-                }
+            if (!cin.good()) {
+                cout << "\nYou entered an incorrect value\n";
+                continue;
+            }
 
-                cout << "\n" << "value: ";
-                cin >> value;
-                if (!cin.good()) {
-                    cout << "\nYou entered an incorrect value\n";
-                    continue;
-                }
-                cout << "\n";
-                arr.replaceElement(index, value);
-                break;
+            if (!sCh) {
+                arr.sort();
+            } else {
+                arr.reverseSort();
             }
-            case 1: {
-                arr.print();
-                break;
+
+            arr.print();
+            break;
+        }
+        case 3: {
+            unsigned newSize;
+
+            cout << "Enter a new array dimension: ";
+            cin >> newSize;
+
+            if (!cin.good()) {
+                cout << "\nYou entered an incorrect value\n";
+                continue;
             }
-            case 0: {
-                return 0;
+            arr.resizeArray(newSize);
+            arr.print();
+            break;
+        }
+        case 2: {
+            unsigned index;
+            number value;
+
+            cout << "index: ";
+            cin >> index;
+            if (!cin.good()) {
+                cout << "\nYou entered an incorrect value\n";
+                continue;
             }
-            default: {
-                cout << "\n" << "There is no case with this number" << "\n";
-                break;
+            getchar();
+            cout << " ";
+            cout << "\n" << "value: ";
+            cin >> value;
+            if (!cin.good()) {
+                cout << "\nYou entered an incorrect value\n";
+                continue;
             }
+            cout << "\n";
+            arr.replaceElement(index, value);
+            break;
+        }
+        case 1: {
+            arr.print();
+            break;
+        }
+        case 0: {
+            return 0;
+        }
+        default: {
+            cout << "\n" << "There is no case with this number" << "\n";
+            break;
+        }
         }
     }
     return 0;
