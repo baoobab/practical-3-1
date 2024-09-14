@@ -77,7 +77,7 @@ void TArray::print() {
         cout << "Array is empty" << "\n";
         return;
     }
-    cout << "Array: ";
+    cout << "Array (size is " << this->size << "): ";
     for (number* curr = this->arr; curr != (this->arr + this->size); curr++) {
         cout << *curr << " ";
     }
