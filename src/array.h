@@ -19,7 +19,6 @@ public:
     void appendElement(number el);
     void print();
     void resizeArray(unsigned newSize);
-    void defineArray(unsigned size);
     number mediumValue();
     number standardDeviation();
     void sort();
