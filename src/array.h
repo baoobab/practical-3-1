@@ -6,12 +6,11 @@
 
 class TArray {
 private:
-    unsigned size = 0;
-    number* arr =  0;
+    unsigned size;
+    number* arr;
 
     void quickSortHelper(int low, int high);
     void quickSortReverseHelper(int low, int high);
-    void copyArray();
     bool checkIndex(unsigned int index);
 public:
     TArray();
